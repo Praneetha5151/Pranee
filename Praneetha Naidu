@@ -1,0 +1,55 @@
+Create MainActivity.java
+package com.todolist.app;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+
+    private ArrayList<String> todoItems;
+    private ArrayAdapter<String> aa;
+    private ListView lvItems;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        lvItems = (ListView) findViewById(R.id.list_todo);
+        todoItems = new ArrayList<>();
+        aa = new ArrayAdapter<>(this, R.layout.item_todo, todoItems);
+        lvItems.setAdapter(aa);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_task:
+                addTask();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void addTask() {
+        // Open a new activity or dialog to add a task
+    }
+
+    public void deleteTask(int position) {
+        todoItems.remove(position);
+        aa.notifyDataSetChanged();
+    }
+}
